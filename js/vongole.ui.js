@@ -41,8 +41,6 @@
   //--------------------------
 
   vongole.on('run', function (step) {
-    console.log(step);
-
     setItemTitle(step.title, '');
 
     $('#v-list').html(tList({
@@ -53,11 +51,24 @@
 
   vongole.on('runItem', function (item) {
     setItemTitle(item.title, item.description || '');
+    printCode(item);
   });
 
   function setItemTitle(title, description) {
     $('#v-item-title').text(title);
     $('#v-item-description').text(description);
+  }
+
+  function printCode(item) {
+    $('#console .mustard-content').empty();
+
+    if (item.code) {
+      m.printFunctionBody(item.code);
+    }
+
+    if (item.result) {
+      m.result(item.result);
+    }
   }
 
 
